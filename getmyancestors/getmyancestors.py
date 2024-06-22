@@ -19,14 +19,14 @@ def main():
     parser = argparse.ArgumentParser(
         description="Retrieve GEDCOM data from FamilySearch Tree (4 Jul 2016)",
         add_help=False,
-        usage="getmyancestors -u username -p password [options]",
+        usage="getmyancestors -u username [options]",
     )
     parser.add_argument(
         "-u", "--username", metavar="<STR>", type=str, help="FamilySearch username"
     )
-    parser.add_argument(
-        "-p", "--password", metavar="<STR>", type=str, help="FamilySearch password"
-    )
+    #parser.add_argument(
+    #    "-p", "--password", metavar="<STR>", type=str, help="FamilySearch password"
+    #)
     parser.add_argument(
         "-i",
         "--individuals",
@@ -87,12 +87,12 @@ def main():
         default=60,
         help="Timeout in seconds [60]",
     )
-    parser.add_argument(
-        "--show-password",
-        action="store_true",
-        default=False,
-        help="Show password in .settings file [False]",
-    )
+    #parser.add_argument(
+    #    "--show-password",
+    #    action="store_true",
+    #    default=False,
+    #    help="Show password in .settings file [False]",
+    #)
     parser.add_argument(
         "--save-settings",
         action="store_true",
@@ -136,11 +136,12 @@ def main():
     args.username = (
         args.username if args.username else input("Enter FamilySearch username: ")
     )
-    args.password = (
-        args.password
-        if args.password
-        else getpass.getpass("Enter FamilySearch password: ")
-    )
+    #args.password = (
+    #    args.password
+    #    if args.password
+    #    else getpass.getpass("Enter FamilySearch password: ")
+    #)
+    args.password=''
 
     time_count = time.time()
 
@@ -148,8 +149,8 @@ def main():
     if args.save_settings and args.outfile.name != "<stdout>":
 
         def parse_action(act):
-            if not args.show_password and act.dest == "password":
-                return "******"
+            #if not args.show_password and act.dest == "password":
+            #    return "******"
             value = getattr(args, act.dest)
             return str(getattr(value, "name", value))
 
